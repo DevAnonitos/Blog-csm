@@ -1,6 +1,6 @@
 import Head from 'next/head'
 
-import { PostCard, PostWidget, Categories } from "../components";
+import { PostCard, PostWidget, Categories, Header } from "../components";
 
 const posts = [
   {title: "React testing", excerpt:   "Learn React testing"},
@@ -16,8 +16,9 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Header />
       <div className='grid grid-cols-1 lg:grid-cols-12 gap-12'>
-        <div className='lg:col-span-8 col-span-1'>
+        <div className='container mx-auto px-10 mb-8 lg:col-span-8 col-span-1'>
           {posts.map((post) => (
             <PostCard post={post} key={post.title} />
           ))}
