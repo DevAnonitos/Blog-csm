@@ -27,7 +27,6 @@ export default function Home({posts}) {
               <Categories />
             </div>
         </div>
-        
       </div>
     </div>
   )
