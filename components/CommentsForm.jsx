@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 
 const CommentsForm = ({ slug }) => {
 
+  // logicState
   const [error, setError] = useState(false);
   const [localStorage, setLocalStorage] = useState(null);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
@@ -16,13 +17,22 @@ const CommentsForm = ({ slug }) => {
     const { value: comment } = commentEl.current;
     const { value: name } = nameEl.current;
     const { value: email } = emailEl.current;
+    const { checked: storeData } = storeDataEl.current;
 
     if(!comment || !name || !email){
       setError(true);
       return;
     }
 
-    const commentObj = {name, email, comment, slug};
+    const commentObj = { name, email, comment, slug };
+
+    if(storeData){
+      localStorage.setItem('name', name);
+      localStorage.setItem('email', email);
+    }else {
+      localStorage.remove('name', name);
+      localStorage.remove('email', email);
+    }
     
   }
 
@@ -51,11 +61,28 @@ const CommentsForm = ({ slug }) => {
         />
         <input 
           type="text" 
-          ref={nameEl} 
+          ref={emailEl} 
           placeholder='Email'
           name='email'
           className="py-2 px-4 outline-none w-full rounded-lg focus:ring-2 focus:ring-gray-200 bg-gray-100 text-gray-700"
         />
+      </div>
+      <div className='grid grid-cols-1 gap-4 mb-4'>
+        <div>
+          <input 
+            ref={storeDataEl} 
+            type="checkbox" 
+            id="storeData" 
+            name='storeData' 
+            value="true" 
+          />
+          <label 
+            className='text-gray-500 cursor-pointer ml-2' 
+            htmlFor='storeData'
+          >
+              Do you want to save email and name for the next time.
+          </label>
+        </div>
       </div>
       {error && <p className='text-xs text-red-600'>All fields are required</p>}
       <div className='flex align-middle justify-center mt-8'>
