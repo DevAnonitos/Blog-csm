@@ -11,6 +11,7 @@ import { getPosts, getPostDetails } from "../../services";
 
 const PostDetails = ({ post }) => {
 
+  // install route
     const router = useRouter();
 
     if (router.isFallback) {
